@@ -15,7 +15,7 @@ This project provides an end-to-end pipeline that:
 3. **Matches** each item against the product catalog using vector similarity search
 4. **Returns** the best matches with confidence scores
 
-## 🏗️ Architecture1
+## 🏗️ Architecture
 ```
 ┌─────────────┐       ┌──────────────┐     ┌─────────────┐
 │ 1C ERP      │────▶ │ FastAPI      │────▶│ Mistral AI  │
