@@ -1,0 +1,31 @@
+# Секреты
+.env
+
+# Данные
+*.csv
+tov.csv
+
+# База данных
+Qdrant/
+chroma_dbOLD/
+chroma_db/
+OLD_PY/
+
+# Логи
+logs/
+*.log
+
+# Виртуальное окружение
+venv/
+env/
+venv_qdrant_build/
+
+# PyInstaller
+build/
+dist/
+*.spec
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
