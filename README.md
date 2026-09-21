@@ -15,7 +15,8 @@ This project provides an end-to-end pipeline that:
 3. **Matches** each item against the product catalog using vector similarity search
 4. **Returns** the best matches with confidence scores
 
-## 🏗️ Architecture
+## 🏗️ Architecture1
+```
 ┌─────────────┐       ┌──────────────┐     ┌─────────────┐
 │ 1C ERP      │────▶ │ FastAPI      │────▶│ Mistral AI  │
 │ (Client)    │◀──── │ Service      │◀────│ (LLM +      │
@@ -27,6 +28,28 @@ This project provides an end-to-end pipeline that:
                        │ Qdrant      │
                        │ (Vector DB) │
                        └─────────────┘
+
+```
+
+## 🏗️ Architecture
+
+```mermaid
+flowchart LR
+    A[1C ERP<br/>Client] -->|POST /parse| B[FastAPI Service<br/>Python]
+    B -->|raw text| C[Mistral AI<br/>LLM]
+    C -->|structured items| B
+    B -->|search request| D[Qdrant<br/>Vector DB]
+    D -->|best matches| B
+    B -->|JSON response| A
+```
+
+> **Flow:**
+> 1. **1C ERP** sends raw order text to the `/parse` endpoint
+> 2. **FastAPI Service** forwards the text to **Mistral AI** (LLM)
+> 3. Mistral returns structured product items (name + quantity)
+> 4. The service searches for each item in **Qdrant** (vector database)
+> 5. Qdrant returns the best matches with confidence scores
+> 6. The service returns the final result to 1C ERP                       
 
 ## 📸 Screenshots
 
