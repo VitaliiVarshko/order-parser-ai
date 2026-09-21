@@ -199,10 +199,10 @@ def main():
     try:
       
         # 5. Reading CSV and preparing points
-        print(f"\nߓ Reading a file: {CSV_PATH}")
+        # print(f"\nߓ Reading a file: {CSV_PATH}")
               
         if not os.path.exists(CSV_PATH):
-            print(f"❌ Error: file not found: {CSV_PATH}")
+            # print(f"❌ Error: file not found: {CSV_PATH}")
             return
       
           
@@ -228,7 +228,7 @@ def main():
             header = header_line.split(';;')
      
             if 'Наименование' not in header or 'Код' not in header:
-                print("❌ Error: Required columns 'Наименование' or 'Код' are missing")
+                # print("❌ Error: Required columns 'Наименование' or 'Код' are missing")
                 return
             
             idx_name = header.index('Наименование')
@@ -313,7 +313,7 @@ def main():
         log_data["skipped"] = load_stats.skipped_count
 
         if not points_to_load:
-            print("\n✅ All data is current, no updates required")
+            # print("\n✅ All data is current, no updates required")
             # load_stats.print_stats()
             return
 
@@ -325,20 +325,20 @@ def main():
         # 2. We get the vector dimension (we make a test query)
         test_embedding = embedding_client.embed_single("тест")
         if not test_embedding:
-            print("❌ Error: Failed to get test embedding")
+            # print("❌ Error: Failed to get test embedding")
             return
         
         vector_size = len(test_embedding)
    
         try:
             qdrant.client.get_collections()
-            print("✓ Qdrant is running and responding")
+            # print("✓ Qdrant is running and responding")
         except Exception as e:
             raise Exception(f"Qdrant is not responding: {e}")
         
 
         # 6. We receive embeddings only for modified products ---
-        print(f"\nߚ Getting embeddings for {len(points_to_load)} products...")
+        # print(f"\nߚ Getting embeddings for {len(points_to_load)} products...")
 
         texts = [p["text"] for p in points_to_load]
 
@@ -368,7 +368,7 @@ def main():
         # ---------------------------------------------------------
 
         elapsed = time.time() - start_time
-        print(f"  Embeddings received: {len(embeddings)} in {elapsed:.2f} sec")
+        # print(f"  Embeddings received: {len(embeddings)} in {elapsed:.2f} sec")
             
         # 7. Forming points for Qdrant
         qdrant_points = []
@@ -388,7 +388,7 @@ def main():
         
         # 8. Uploading to Qdrant
         qdrant_start = time.time()
-        print(f"\nߚ Uploading to Qdrant...")
+        # print(f"\nߚ Uploading to Qdrant...")
         qdrant.add_points(collection_name, qdrant_points, batch_size=100)
         qdrant_elapsed = time.time() - qdrant_start
         
@@ -400,10 +400,10 @@ def main():
         
         # 9. Verification
         info = qdrant.get_collection_info(collection_name)
-        print(f"\n--- Verification ---")
-        print(f"  Name: {info['name']}")
-        print(f"  Number of points: {info['points_count']}")
-        print(f"  Status: {info['status']}")
+        # print(f"\n--- Verification ---")
+        # print(f"  Name: {info['name']}")
+        # print(f"  Number of points: {info['points_count']}")
+        # print(f"  Status: {info['status']}")
 
         expected_points = len(points_to_load)
         actual_points = len(qdrant_points)

@@ -31,7 +31,7 @@ This project provides an end-to-end pipeline that:
 
 ```
 
-## 🏗️ Architecture
+
 
 ```mermaid
 flowchart LR
